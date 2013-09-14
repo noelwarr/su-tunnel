@@ -25,4 +25,4 @@ How does it work?
 
 It's a hack.  But it has proved the most effective hack I've ever put together.  When SketchUp runs it loads the plugin and starts a timer that is called every x milliseconds.  When the timer is called, it uses an undocumented class called SUSocket to connect to port 1517.  Usually the connection is refused and everything continues as usual.
 
-Upon building in your IDE, ruby starts up a socket listening on port 1517 and waits for SketchUp to connect.  The IDE tells the SketchUp tunnel what files to load and then communicates the output back to the IDE.
+Upon building in your IDE, ruby runs tunnel_ide.rb which starts up a socket listening on port 1517 and waits for SketchUp to connect.  The IDE tells the SketchUp tunnel what files to load and then waits for SketchUp to respond.
