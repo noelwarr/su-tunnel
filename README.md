@@ -1,7 +1,7 @@
 What is Tunnel?
 ===============
 
-Tunnel allows you run ruby code inside Sketchup directly from your IDE.  Though the [SketchUp Bridge](http://www.ibm.com/developerworks/opensource/library/os-eclipse-sketchup1/) does too allow you to do this, the Tunnel captures all STDOUT and displays it in your IDE console.
+Tunnel allows you run ruby code inside Sketchup directly from your IDE.  Though the [SketchUp Bridge](http://www.ibm.com/developerworks/opensource/library/os-eclipse-sketchup1/) does too allow you to do this, the Tunnel captures output and displays it in your IDE console.
 
 How do I use it?
 ================
