@@ -8,11 +8,11 @@ How do I use it?
 
 Requirements:  Ruby must be installed on the system (and SketchUp, obviously)
 
-1) copy tunnel_skp.rb to your SketchUp plugins directory.
-2) copy tunnel_ide.rb somewhere your IDE can find it
-3) You'll have to configure the IDE to issue the appropriate system command.  If you get a configuration to work, email me and I'll add it here.
+1. copy tunnel_skp.rb to your SketchUp plugins directory.
+2. copy tunnel_ide.rb somewhere your IDE can find it
+3. You'll have to configure the IDE to issue the appropriate system command.  If you get a configuration to work, email me and I'll add it here.
 
-- sublime text
+sublime text
 
 				{
 					"cmd": ["ruby", <<path to tunnel_ide.rb>>, "$file"],
