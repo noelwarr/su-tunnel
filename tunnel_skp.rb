@@ -1,11 +1,11 @@
-#I guess this could be a class but because SKSocket can only handle
-#one connection at a time I feel more comfortable with it being
-#a module.  When started, the Tunnel tries to connect to port 1517.
-#If successful, it then loads whatever the connection tells it to,
-#logs the output and feeds it back through the socket
+# I guess this could be a class but because SKSocket can only handle
+# one connection at a time I feel more comfortable with it being
+# a module.  When started, the Tunnel tries to connect to port 1517.
+# If successful, it then loads whatever the connection tells it to,
+# logs the output and feeds it back through the socket
 module Tunnel
 
-	PORT             = 1517
+  PORT             = 1517
   @@connected      = false
   @@running_script = false
   @@log            = Array.new
@@ -21,16 +21,16 @@ module Tunnel
       SKSocket.add_socket_listener {|msg|
         if msg[0..4] == "LOAD:"
           begin
-          	path = msg[5..-1]
-          	dirname = File.dirname(path)
+            path = msg[5..-1]
+            dirname = File.dirname(path)
             puts dirname
-          	$LOAD_PATH.push(dirname).compact!
-          	@@running_script = true
+            $LOAD_PATH.push(dirname).compact!
+            @@running_script = true
             load path
             @@running_script = false
             SKSocket.write Tunnel.log.join
           rescue Exception => e
-          	@@running_script = false
+            @@running_script = false
             SKSocket.write Tunnel.log.join + e.message + "\n" + e.backtrace[0..-3].join("\n")
           end
           Tunnel.log.clear
