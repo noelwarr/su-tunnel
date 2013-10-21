@@ -1,7 +1,7 @@
 What is Tunnel?
 ===============
 
-Tunnel allows you run ruby code inside Sketchup directly from your IDE.  Though the [SketchUp Bridge](http://www.ibm.com/developerworks/opensource/library/os-eclipse-sketchup1/) does too allow you to do this, the Tunnel captures output and displays it in your IDE console.
+Tunnel allows you run ruby code inside Sketchup directly from your IDE.  Though the [SketchUp Bridge](http://www.ibm.com/developerworks/opensource/library/os-eclipse-sketchup1/) allows you to do this, the Tunnel captures output and displays it in your IDE console.
 
 How do I use it?
 ================
@@ -10,14 +10,23 @@ Requirements:  Ruby must be installed on the system (and SketchUp, obviously)
 
 1. copy tunnel_skp.rb to your SketchUp plugins directory.
 2. copy tunnel_ide.rb somewhere your IDE can find it
-3. You'll have to configure the IDE to issue the appropriate system command.  If you get a configuration to work, email me and I'll add it here.
+3. configure your IDE.
 
-sublime text
+Sublime Text
+============
 
-				{
-					"cmd": ["ruby", <<path to tunnel_ide.rb>>, "$file"],
-					"file_regex": "^(...*?):([0-9]*):?([0-9]*)"
-				}
+For sublime, your best bet is to copy the two relevant files (SketchUp.sublime-build and tunnel_ide.rb) to the sublime user packages directory.  This can be a bit tricky to find on windows.  It should be something like C:\Users\Name\AppData\Roaming\Sublime Text 3\Packages\User.  Try opening a windows file explorer and enter **%appdata%**.  That should take you to a folder you can navigate from.
+
+Troubleshooting
+===============
+
+If you're having problems communicating through the Tunnel you can narrow down where the problem might be comming from.
+
+1. SketchUp -> Run SketchUp, open a console and type in "Tunnel" to see if the module has been loaded.
+2. Ruby in path -> Open a shell and type
+				ruby -e "puts 'hello world'"
+3. Tunnel -> Navigate to the tunnel_ide.rb folder and add a test ruby script there.  Something like my_test.rb containing a few puts().  Then at the console try
+				ruby tunnel_ide.rb my_test.rb
 
 
 How does it work?

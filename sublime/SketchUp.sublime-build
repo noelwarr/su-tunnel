@@ -1,0 +1,4 @@
+{
+	"cmd": ["ruby", "$packages\\User\\tunnel_ide.rb", "$file"],
+	"file_regex": "^(...*?):([0-9]*):?([0-9]*)"
+}
