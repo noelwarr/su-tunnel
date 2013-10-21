@@ -17,6 +17,7 @@ Sublime Text
 
 For sublime, your best bet is to copy the two relevant files (SketchUp.sublime-build and tunnel_ide.rb) to the sublime user packages directory.  This can be a bit tricky to find on windows.  It should be something like C:\Users\Name\AppData\Roaming\Sublime Text 3\Packages\User.  Try opening a windows file explorer and enter **%appdata%**.  That should take you to a folder you can navigate from.
 
+
 Troubleshooting
 ===============
 

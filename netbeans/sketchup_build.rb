@@ -59,24 +59,5 @@ for dir in dirs
 end
 
 # Now we go to Noel's script
-require 'socket'
-HOST = "127.0.0.1"
-PORT = 1517
-
-def kill_server
-	socket = TCPSocket.open(HOST,PORT)
-	socket.puts
-	socket.close
-	sleep 2
-end
-
-begin
-	server = TCPServer.new(HOST, PORT)
-rescue 
-	kill_server
-	server = TCPServer.new(HOST, PORT)
-end
-client = server.accept
-client.puts "LOAD:" + last_modified_file
-puts client.read
-client.close
+tunnel_path = File.join(File.dirname(__FILE__), "tunnel_ide.rb")
+system("ruby #{tunnel_path} #{last_modified_file}")
