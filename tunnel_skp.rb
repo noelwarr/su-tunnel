@@ -5,6 +5,7 @@
 # logs the output and feeds it back through the socket
 module Tunnel
 
+  HOST             = '127.0.0.1'
   PORT             = 1517
   @@connected      = false
   @@running_script = false
@@ -17,25 +18,27 @@ module Tunnel
   def self.connect
     if !@@connected
       @@connected = true
-      SKSocket.connect "127.0.0.1", PORT
-      SKSocket.add_socket_listener {|msg|
-        if msg[0..4] == "LOAD:"
+      SKSocket.connect(HOST, PORT)
+      SKSocket.add_socket_listener { |msg|
+        if msg[0..4] == 'LOAD:'
           begin
             path = msg[5..-1]
-            dirname = File.dirname(path)
-            puts dirname
-            $LOAD_PATH.push(dirname).compact!
             @@running_script = true
             load path
             @@running_script = false
-            SKSocket.write Tunnel.log.join
+            SKSocket.write(Tunnel.log.join)
           rescue Exception => e
             @@running_script = false
-            SKSocket.write Tunnel.log.join + e.message + "\n" + e.backtrace[0..-3].join("\n")
+            SKSocket.write(
+              Tunnel.log.join <<
+              e.message <<
+              "\n" <<
+              e.backtrace[0..-3].join("\n")
+            )
           end
           Tunnel.log.clear
         end
-        if msg != "Connection established"
+        if msg != 'Connection established'
           SKSocket.disconnect
           @@connected = false
         end
@@ -96,5 +99,5 @@ proxy = TunnelProxy.new
 $stdout = proxy
 $stderr = proxy
 
-#Perhaps wrap this into a menu option.  I allways want it on.
+# Perhaps wrap this into a menu option. I allways want it on.
 Tunnel.start
