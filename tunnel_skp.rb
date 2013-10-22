@@ -58,16 +58,43 @@ module Tunnel
 
 end
 
-# monkey patch puts to capture output.  There must be
-# a better way of doing this
-def puts(input = String.new)
-  if Tunnel.running_script?
-    Tunnel.log.push "#{input}\n"
-    nil
-  else
-    super
+
+class TunnelProxy
+
+  def write(*args)
+    if Tunnel.running_script?
+      length = 0
+      for arg in args
+        input = arg.to_s
+        Tunnel.log << input
+        length += input.length
+      end
+      length
+    else
+      0
+    end
   end
+
+  # This is called some times by Ruby 2.0.
+  def flush
+    Tunnel.connect
+    self
+  end
+
+  # Indicate that the content is buffered.
+  def sync
+    false
+  end
+
+  def sync=(value)
+    raise NotImplementedError
+  end
+
 end
+
+proxy = TunnelProxy.new
+$stdout = proxy
+$stderr = proxy
 
 #Perhaps wrap this into a menu option.  I allways want it on.
 Tunnel.start
