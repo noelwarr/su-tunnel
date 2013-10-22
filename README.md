@@ -22,11 +22,11 @@ Troubleshooting
 
 If you're having problems communicating through the Tunnel you can narrow down where the problem might be comming from.
 
-1. SketchUp -> Run SketchUp, open a console and type in "Tunnel" to see if the module has been loaded.
+1. SketchUp -> Run SketchUp, open a console and type in `SketchUpTunnel` to see if the module has been loaded.
 2. Ruby in path -> Open a shell and type
-				ruby -e "puts 'hello world'"
-3. Tunnel -> Navigate to the tunnel_ide.rb folder and add a test ruby script there.  Something like my_test.rb containing a few puts().  Then at the console try
-				ruby tunnel_ide.rb my_test.rb
+				`ruby -e "puts 'hello world'"`
+3. Tunnel -> Navigate to the tunnel_ide.rb folder and add a test ruby script there.  Something like my_test.rb containing a few `puts()`.  Then at the console try
+				`ruby tunnel_ide.rb my_test.rb`
 
 
 How does it work?
