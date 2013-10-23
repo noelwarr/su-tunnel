@@ -19,7 +19,7 @@
 
 require 'find'
 
-# YOUR PERSONAL SETUP GOES HERE
+# YOUR PERSONAL SETUP STARTS HERE ==============================================
 # Define location of your .rb files. You can specify the full path if there are
 # some problems and no Ruby files are found.
 dirs = Dir['../main/', '../tests/']
@@ -27,6 +27,7 @@ dirs = Dir['../main/', '../tests/']
 excludes = [".hg","ext","env","i18n","license","Utils"]
 # Check only Ruby file types
 included_files = ['.rb']
+# YOUR PERSONAL SETUP STOPS HERE ===============================================
 
 # Set the variable to hold last modified filepath
 last_modified_file = String.new
@@ -61,9 +62,22 @@ for dir in dirs
 	end
 end
 
+# We do not want to see warning about already
+# intialized constant ARGV when we change it.
+# http://mentalized.net/journal/2010/04/02/suppress_warnings_from_ruby/
+module Kernel
+	def suppress_warnings
+		original_verbosity = $VERBOSE
+		$VERBOSE = nil
+		result = yield
+		$VERBOSE = original_verbosity
+		return result
+	end
+end
+
 # Now we go to Noel's script
 tunnel_path = File.join(File.dirname(__FILE__), "tunnel_ide.rb")
 # overload ARGV, so the last modified file will be loaded
-ARGV = [last_modified_file]
+suppress_warnings { ARGV = [last_modified_file] }
 # and call the original script.
 load(tunnel_path)
