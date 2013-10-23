@@ -1,4 +1,6 @@
 # This is an extension of Noel Warr's su-tunnel script, which works on NetBeans.
+# Extension was made by Jernej Vidmar from the Modelur team and enhanced by Noel
+# himself. Thanks!
 # 
 # You need to have tunnel_skp.rb also installed in your Skp/Plugins directory.
 # 
@@ -17,12 +19,13 @@
 
 require 'find'
 
-# Here you define where your .rb files reside. You can specify the full path
-# if it causes you some problems.
+# YOUR PERSONAL SETUP GOES HERE
+# Define location of your .rb files. You can specify the full path if there are
+# some problems and no Ruby files are found.
 dirs = Dir['../main/', '../tests/']
-# Do not include this folders in your search for the last modified date.
-excludes = [".hg","ext","env","i18n","license"]
-# Check only Ruby files
+# Exclude these folders in your search for the last modified date.
+excludes = [".hg","ext","env","i18n","license","Utils"]
+# Check only Ruby file types
 included_files = ['.rb']
 
 # Set the variable to hold last modified filepath
@@ -45,7 +48,7 @@ for dir in dirs
 				# get last modification date of the file...
 				file = File.open path, 'r'
 				modification_time = file.mtime.utc
-				#				puts modification_time
+				# puts modification_time
 				file.close
 
 				# and set it as last modified if appropriate
@@ -60,4 +63,7 @@ end
 
 # Now we go to Noel's script
 tunnel_path = File.join(File.dirname(__FILE__), "tunnel_ide.rb")
-system("ruby #{tunnel_path} #{last_modified_file}")
+# overload ARGV, so the last modified file will be loaded
+ARGV = [last_modified_file]
+# and call the original script.
+load(tunnel_path)
