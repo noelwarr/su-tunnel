@@ -51,9 +51,16 @@ module SketchUpTunnel
             load path
             @running_script = false
             SKSocket.write(self.log.join)
+            SKETCHUP_CONSOLE(self.log.join)
           rescue Exception => e
             @running_script = false
             SKSocket.write(
+              self.log.join <<
+              e.message <<
+              "\n" <<
+              e.backtrace[0..-3].join("\n")
+            )
+            SKETCHUP_CONSOLE(
               self.log.join <<
               e.message <<
               "\n" <<
