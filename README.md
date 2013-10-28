@@ -17,6 +17,12 @@ Sublime Text
 
 For sublime, your best bet is to copy the two relevant files (SketchUp.sublime-build and tunnel_ide.rb) to the sublime user packages directory.  This can be a bit tricky to find on windows.  It should be something like C:\Users\Name\AppData\Roaming\Sublime Text 3\Packages\User.  Try opening a windows file explorer and enter **%appdata%**.  That should take you to a folder you can navigate from.
 
+NetBeans
+============
+
+For NetBeans, copy tunnel_skp.rb to /SketchUp/Plugins folder. Then, copy tunnel_ide.rb and /NetBeans/sketchup_build.rb to some location which you will add to your NetBeans project (eg. C:\Users\Name\NetBeansUtils\). Put both files at the same level. Take a look at the sketchup_build.rb and modify it to suit your needs (set which files & folder should be checked for changes).
+Now open NetBeans, right click on your Project and select "Properties", then select "Run" on the left side. Set "sketchup_build.rb" as your main file and you are set! When you call Run from NetBeans, this scripts will first check for the last modified Ruby file and send it directly to SketchUp.                                                                 
+
 Troubleshooting
 ===============
 
